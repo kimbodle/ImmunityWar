@@ -6,8 +6,8 @@ public class EnemyMover : MonoBehaviour
 {
     [SerializeField] List<Waypoint> path = new List<Waypoint>(); //웨이포인트의 리스트는 path. 적이 따라야하는 경로
     [SerializeField] [Range(0f,5f)] float EnemySpeed = 1f;
-    // Start is called before the first frame update
 
+    Enemy enemy;
     void OnEnable()
     {
         //Debug.Log("스타트 시작");
@@ -16,6 +16,10 @@ public class EnemyMover : MonoBehaviour
         StartCoroutine(FollowPath());
         //Debug.Log("스타트 끝");
 
+    }
+    private void Start()
+    {
+        enemy = GetComponent<Enemy>();
     }
 
     void FindPath()
@@ -56,7 +60,7 @@ public class EnemyMover : MonoBehaviour
                 yield return new WaitForEndOfFrame(); 
             }
         }
-
+        enemy.StealGold();
         //Destroy(gameObject); //적이 경로의 끝에 도달하면 삭제
         gameObject.SetActive(false);
     }
