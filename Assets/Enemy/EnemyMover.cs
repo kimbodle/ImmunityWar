@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Enemy))]
 public class EnemyMover : MonoBehaviour
 {
     [SerializeField] List<Waypoint> path = new List<Waypoint>(); //웨이포인트의 리스트는 path. 적이 따라야하는 경로
@@ -26,18 +27,29 @@ public class EnemyMover : MonoBehaviour
     {
         //이미 경로를 찾아놓고 특정상황에서 경로를 또 찾았을때 새것을 기존 경로 아래에 추가하게됨 > 경로가 더 길어짐
         path.Clear(); //위에 방지
-        GameObject[] waypoints = GameObject.FindGameObjectsWithTag("Path");
 
-        //배열에 넣어둔 웨이포인트들을 리스트에 넣기
-        foreach (GameObject waypoint in waypoints)
+        //경로의 부모 개체를 반환한 값 parent
+        GameObject parent  = GameObject.FindGameObjectWithTag("Path");
+
+        //부모 객체를 찾은 뒤 자식 객체를 순서대로 반복
+        foreach (Transform child in parent.transform)
         { 
-            path.Add(waypoint.GetComponent<Waypoint>());
+            Waypoint waypoint = child.GetComponent<Waypoint>();
+            if(waypoint != null)
+            {
+                path.Add(waypoint);
+            }
         }
     }
 
     private void ReturnToStart()
     {
         transform.position = path[0].transform.position;
+    }
+    void FinishPath()
+    {
+        enemy.StealGold();
+        gameObject.SetActive(false);
     }
 
     //적이 경로에 따라 이동
@@ -60,8 +72,6 @@ public class EnemyMover : MonoBehaviour
                 yield return new WaitForEndOfFrame(); 
             }
         }
-        enemy.StealGold();
-        //Destroy(gameObject); //적이 경로의 끝에 도달하면 삭제
-        gameObject.SetActive(false);
+        FinishPath();
     }
 }
