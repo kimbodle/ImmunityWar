@@ -17,6 +17,7 @@ public class CoordinateLabeler : MonoBehaviour
     private void Awake()
     {
         label = GetComponent<TextMeshPro>();
+        //label.enabled = true;
         label.enabled = false;
 
         waypoint = GetComponentInParent<Waypoint>();//이 스크립트는 Text에, waypoint는 tile에
@@ -33,6 +34,7 @@ public class CoordinateLabeler : MonoBehaviour
         }
         SetLabelColor();
         ToggleLabels();
+        //label.enabled = true;
     }
     void ToggleLabels()
     {
