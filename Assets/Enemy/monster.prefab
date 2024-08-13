@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   path: []
-  EnemySpeed: 0.5
+  EnemySpeed: 1
 --- !u!114 &347315061316254296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,8 +126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cce9620d6664bf44794c497b9796394b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHitPoints: 3
-  diificultyRamp: 1
+  maxHitPoints: 7
+  diificultyRamp: 3
 --- !u!136 &-3999147460316768964
 CapsuleCollider:
   m_ObjectHideFlags: 0
